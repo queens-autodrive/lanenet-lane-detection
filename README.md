@@ -30,6 +30,7 @@ download the model and put them in folder model/tusimple_lanenet/
 You can test a single image on the trained model as follows
 
 ```
+python setup.py develop
 python tools/test_lanenet.py --weights_path /PATH/TO/YOUR/CKPT_FILE_PATH 
 --image_path ./data/tusimple_test_image/0.jpg
 ```

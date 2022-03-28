@@ -1,0 +1,3 @@
+*.pyc
+/log
+/lanenet_model.egg-info

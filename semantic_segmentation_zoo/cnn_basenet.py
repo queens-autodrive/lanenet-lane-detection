@@ -8,7 +8,8 @@
 """
 The base convolution neural networks mainly implement some useful cnn functions
 """
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 
 
@@ -51,10 +52,11 @@ class CNNBaseModel(object):
             padding = padding.upper()
 
             if isinstance(kernel_size, list):
-                filter_shape = [kernel_size[0], kernel_size[1]] + [in_channel / split, out_channel]
+                #filter_shape = [kernel_size[0], kernel_size[1]] + [in_channel / split, out_channel]
+                filter_shape = [kernel_size[0], kernel_size[1]] + [in_channel // split, out_channel]
             else:
-                filter_shape = [kernel_size, kernel_size] + [in_channel / split, out_channel]
-
+                #filter_shape = [kernel_size, kernel_size] + [in_channel / split, out_channel]
+                filter_shape = [kernel_size, kernel_size] + [in_channel // split, out_channel]
             if isinstance(stride, list):
                 strides = [1, stride[0], stride[1], 1] if data_format == 'NHWC' \
                     else [1, 1, stride[0], stride[1]]
@@ -63,7 +65,8 @@ class CNNBaseModel(object):
                     else [1, 1, stride, stride]
 
             if w_init is None:
-                w_init = tf.contrib.layers.variance_scaling_initializer()
+                #w_init = tf.contrib.layers.variance_scaling_initializer()
+                w_init = tf.keras.initializers.VarianceScaling(scale=2.0)
             if b_init is None:
                 b_init = tf.constant_initializer()
 
@@ -106,7 +109,8 @@ class CNNBaseModel(object):
             padding = padding.upper()
 
             depthwise_filter_shape = [kernel_size, kernel_size] + [in_channel, depth_multiplier]
-            w_init = tf.contrib.layers.variance_scaling_initializer()
+            #w_init = tf.contrib.layers.variance_scaling_initializer()
+            w_init = tf.keras.initializers.VarianceScaling(scale=2.0)
 
             depthwise_filter = tf.get_variable(
                 name='depthwise_filter_w', shape=depthwise_filter_shape,

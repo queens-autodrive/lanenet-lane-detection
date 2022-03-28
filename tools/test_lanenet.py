@@ -15,7 +15,8 @@ import time
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 from lanenet_model import lanenet
 from lanenet_model import lanenet_postprocess
