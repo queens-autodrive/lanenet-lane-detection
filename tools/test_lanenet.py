@@ -14,6 +14,9 @@ import time
 
 import cv2
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('tkagg')
+
 import numpy as np
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
@@ -121,7 +124,7 @@ def test_lanenet(image_path, weights_path):
             )
         t_cost = time.time() - t_start
         t_cost /= loop_times
-        LOG.info('Single imgae inference cost time: {:.5f}s'.format(t_cost))
+        LOG.info('Single image inference cost time: {:.5f}s'.format(t_cost))
 
         postprocess_result = postprocessor.postprocess(
             binary_seg_result=binary_seg_image[0],
